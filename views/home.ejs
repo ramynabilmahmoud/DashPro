@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title><%= title %></title>
     <style>
       input,
       button {
@@ -19,5 +19,6 @@
       <br />
       <button>Send to DB</button>
     </form>
+    <h1>Your Name is <%= data.at(-1).userName %></h1>
   </body>
 </html>

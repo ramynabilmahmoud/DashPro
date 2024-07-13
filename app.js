@@ -3,9 +3,16 @@ const app = express();
 const port = 3000;
 const mongoose = require("mongoose");
 const Mydata = require("./models/mydataSchema");
+app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
-  res.sendFile("./views/home.html", { root: __dirname });
+  Mydata.find()
+    .then((result) => {
+      res.render("home", { title: "Home Page", data: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 app.get("/index.html", (req, res) => {
