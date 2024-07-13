@@ -2,9 +2,14 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const mongoose = require("mongoose");
-
+const Mydata = require("./models/mydataSchema");
+app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.sendFile("./views/home.html", { root: __dirname });
+});
+
+app.get("/index.html", (req, res) => {
+  res.send("<h1>Sent To DB </h1>");
 });
 
 mongoose
@@ -19,3 +24,16 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+app.post("/save", (req, res) => {
+  console.log(req.body);
+  const data = new Mydata(req.body);
+  data
+    .save()
+    .then(() => {
+      res.redirect("/index.html");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
