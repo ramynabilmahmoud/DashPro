@@ -22,10 +22,10 @@ app.get("/user/edit.html", (req, res) => {
 });
 
 //POST requests
-app.post("/user/add.html", async (req, res) => {
+app.post("/user/add.html",  (req, res) => {
   console.log(req.body);
   const user = new userData(req.body);
-  await user
+   user
     .save()
     .then((result) => {
       console.log(result);
