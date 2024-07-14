@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const customerSchema = new Schema({
+
+
+// define the Schema (the structure of the article)
+const userSchema = new Schema({
   firstName: String,
   lastName: String,
   email: String,
@@ -9,5 +12,27 @@ const customerSchema = new Schema({
   country: String,
   gender: String,
 });
-const user = mongoose.model("customer", customerSchema);
-module.exports = user;
+
+
+
+
+// Create a model based on that schema
+const User = mongoose.model("customer", userSchema);
+
+
+
+
+// export the model
+module.exports = User
+
+
+
+
+
+
+
+
+
+
+
+
