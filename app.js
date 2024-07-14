@@ -2,25 +2,38 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const mongoose = require("mongoose");
-const myData = require("./models/schema");
+const userData = require("./models/customerSchema");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+//GET requests
 app.get("/", (req, res) => {
   res.render("home");
 });
-
 app.get("/user/add.html", (req, res) => {
   res.render("user/add");
 });
-
 app.get("/user/view.html", (req, res) => {
   res.render("user/view");
 });
-
 app.get("/user/edit.html", (req, res) => {
   res.render("user/edit");
+});
+
+//POST requests
+app.post("/user/add.html", async (req, res) => {
+  console.log(req.body);
+  const user = new userData(req.body);
+  await user
+    .save()
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  res.redirect("/user/view.html");
 });
 mongoose
   .connect(
