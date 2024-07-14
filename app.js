@@ -6,23 +6,16 @@ app.use(express.urlencoded({ extended: true }));
 const userSchema = require("./models/customerSchema");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+const moment = require("moment");
+var methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 // GET Requst
 app.get("/", (req, res) => {
-  userSchema.find()
+  userSchema
+    .find()
     .then((result) => {
-      res.render("index", { user: result });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/user/:id", (req, res) => {
-  // result ==> object
-  userSchema.findById(req.params.id)
-    .then((result) => {
-      res.render("user/view", { userDetails: result });
+      res.render("index", { user: result, moment: moment });
     })
     .catch((err) => {
       console.log(err);
@@ -33,16 +26,46 @@ app.get("/user/add.html", (req, res) => {
   res.render("user/add");
 });
 
-app.get("/user/edit.html", (req, res) => {
-  res.render("user/edit");
+app.get("/edit/:id", (req, res) => {
+  userSchema
+    .findById(req.params.id)
+    .then((result) => {
+      res.render("user/edit", { userDetails: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/view/:id", (req, res) => {
+  userSchema
+    .findById(req.params.id)
+    .then((result) => {
+      res.render("user/view", { userDetails: result, moment: moment });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 // POST Requst
 app.post("/user/add.html", (req, res) => {
-  const user = new User(req.body);
+  const user = new userSchema(req.body);
   user
     .save()
     .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//DELETE Request
+app.delete("/delete/:id", (req, res) => {
+  userSchema
+    .findByIdAndDelete(req.params.id)
+    .then((result) => {
       res.redirect("/");
     })
     .catch((err) => {
