@@ -3,17 +3,15 @@ const app = express();
 const port = 3000;
 const mongoose = require("mongoose");
 app.use(express.urlencoded({ extended: true }));
-const User = require("./models/customerSchema");
+const userSchema = require("./models/customerSchema");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 // GET Requst
 app.get("/", (req, res) => {
-  // result ==> array of objects
-  console.log("--------------------------------------------");
-  User.find()
+  userSchema.find()
     .then((result) => {
-      res.render("index", { arr: result });
+      res.render("index", { user: result });
     })
     .catch((err) => {
       console.log(err);
@@ -22,9 +20,9 @@ app.get("/", (req, res) => {
 
 app.get("/user/:id", (req, res) => {
   // result ==> object
-  User.findById(req.params.id)
+  userSchema.findById(req.params.id)
     .then((result) => {
-      res.render("user/view", { obj: result });
+      res.render("user/view", { userDetails: result });
     })
     .catch((err) => {
       console.log(err);
