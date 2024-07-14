@@ -272,6 +272,18 @@ app.post("/user/add.html", (req, res) => {
     });
 });
 
+//PUT Request
+app.put("/edit/:id", (req, res) => {
+  userSchema
+    .findByIdAndUpdate(req.params.id, req.body)
+    .then((result) => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 //DELETE Request
 app.delete("/delete/:id", (req, res) => {
   userSchema
