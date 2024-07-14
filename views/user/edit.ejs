@@ -107,9 +107,9 @@
               <label for="inputCountry" class="form-label">Country:</label>
               <select id="inputCountry" class="form-select">
                 <option selected hidden disabled>Choose here ...</option>
-
-                <option>Morocco</option>
-                <option>Egypt</option>
+                <% countryList.forEach(item => { %>
+                <option><%= item %></option>
+                <% }) %>
               </select>
             </div>
           </div>

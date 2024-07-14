@@ -32,8 +32,8 @@
       <%- include('./Components/sidebar.ejs', {currentPage: "index"}) %>
 
       <section class="w-100">
-        <%- include('./Components/navbar.ejs') %>
-
+        <%- include('./Components/navbar.ejs') %> <% if (user && user.length >
+        0) { %>
         <table
           style="width: 99%"
           class="text-center mx-auto table mt-5 table-striped table-bordered"
@@ -53,12 +53,12 @@
           <tbody>
             <% user.forEach((item, index) => { %>
             <tr>
-              <th scope="row"><%= index +1 %></th>
+              <th scope="row"><%= index + 1 %></th>
               <td><%= item.firstName %> <%= item.lastName %></td>
               <td><%= item.gender %></td>
               <td><%= item.country %></td>
               <td><%= item.age %></td>
-              <td><%= moment(item.updatedAt).fromNow()%></td>
+              <td><%= moment(item.updatedAt).fromNow() %></td>
               <td>
                 <a
                   data-bs-toggle="tooltip"
@@ -66,8 +66,9 @@
                   data-bs-placement="top"
                   class="btn btn-primary btn-sm"
                   href="/view/<%= item._id %>"
-                  ><i class="bi bi-eye"></i
-                ></a>
+                >
+                  <i class="bi bi-eye"></i>
+                </a>
 
                 <a
                   data-bs-toggle="tooltip"
@@ -97,6 +98,14 @@
             <% }) %>
           </tbody>
         </table>
+        <% } else { %>
+        <center>
+          <section class="w-100">
+            <h1>There is No User Added Yet</h1>
+          </section>
+        </center>
+
+        <% } %>
       </section>
     </main>
     <script src="./js/bootstrap.bundle.min.js"></script>

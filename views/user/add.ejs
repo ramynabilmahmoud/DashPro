@@ -6,7 +6,7 @@
       rel="stylesheet"
       href="../bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
     />
-    <link rel="shortcut icon" href="../img/ali.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../img/ali.png" type="image/x-icon" />
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,7 +20,7 @@
 
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="../css/dark-light.css">
+    <link rel="stylesheet" href="../css/dark-light.css" />
 
     <!-- Custom styles for this template -->
     <link href="../css/sidebars.css" rel="stylesheet" />
@@ -29,18 +29,21 @@
   <body>
     <%- include('../Components/dark-light.ejs') %>
 
-
     <main class="d-flex flex-nowrap">
       <%- include('../Components/sidebar.ejs', {currentPage: "add"}) %>
 
       <section class="w-100">
         <%- include('../Components/navbar.ejs') %>
 
-        <form action="/user/add.html" method="post" class="mx-0 row gx-3 gy-4 mt-3">
+        <form
+          action="/user/add.html"
+          method="post"
+          class="mx-0 row gx-3 gy-4 mt-3"
+        >
           <div class="col-md-6">
             <label for="inputfirstName4" class="form-label">First Name:</label>
             <input
-            name="firstName"
+              name="firstName"
               placeholder="Ali..."
               type="text"
               class="form-control"
@@ -50,7 +53,7 @@
           <div class="col-md-6">
             <label for="inputlastName4" class="form-label">Last Name:</label>
             <input
-            name="lastName"
+              name="lastName"
               placeholder="Hassan..."
               type="text"
               class="form-control"
@@ -61,7 +64,7 @@
           <div class="col-md-6">
             <label for="inputemail4" class="form-label">Email:</label>
             <input
-            name="email"
+              name="email"
               placeholder="ali@gmail.com"
               type="email"
               class="form-control"
@@ -71,7 +74,7 @@
           <div class="col-md-6">
             <label for="inputtele4" class="form-label">Telephone:</label>
             <input
-            name="phoneNumber"
+              name="phoneNumber"
               placeholder="011987899"
               type="number"
               class="form-control"
@@ -83,7 +86,7 @@
             <div class="col-md-6">
               <label for="inputage4" class="form-label">Age:</label>
               <input
-              name="age"
+                name="age"
                 placeholder="Your Age: ..."
                 type="number"
                 class="form-control"
@@ -97,9 +100,9 @@
               <label for="inputCountry" class="form-label">Country:</label>
               <select name="country" id="inputCountry" class="form-select">
                 <option selected hidden disabled>Choose here ...</option>
-
-                <option>Morocco</option>
-                <option>Egypt</option>
+                <% countryList.forEach(item => { %>
+                <option><%= item %></option>
+                <% }) %>
               </select>
             </div>
           </div>
