@@ -261,9 +261,8 @@ app.get("/view/:id", (req, res) => {
 
 // POST Request
 app.post("/user/add.html", (req, res) => {
-  const user = new userSchema(req.body);
-  user
-    .save()
+  userSchema
+    .create(req.body)
     .then(() => {
       res.redirect("/");
     })
