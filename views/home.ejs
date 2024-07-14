@@ -308,6 +308,43 @@
                 </button>
               </td>
             </tr>
+
+            <tr>
+              <th scope="row">3</th>
+              <td><%= user[0].firstName +" "+ user[1].lastName %></td>
+              <td><%= user[0].gender %></td>
+              <td><%= user[0].country %></td>
+              <td><%= user[0].age %></td>
+              <td>3 days ago</td>
+              <td>
+                <a
+                  data-bs-toggle="tooltip"
+                  data-bs-title="View details"
+                  data-bs-placement="top"
+                  class="btn btn-primary btn-sm"
+                  href="./user/view.html"
+                  ><i class="bi bi-eye"></i
+                ></a>
+
+                <a
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Edit user"
+                  data-bs-placement="top"
+                  class="btn btn-primary btn-sm"
+                  href="./user/edit.html"
+                >
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <button
+                  data-bs-toggle="tooltip"
+                  data-bs-title="Delete user"
+                  data-bs-placement="top"
+                  class="btn btn-danger btn-sm"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
           </tbody>
         </table>
       </section>

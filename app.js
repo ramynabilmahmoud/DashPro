@@ -9,7 +9,15 @@ app.use(express.static("public"));
 
 //GET requests
 app.get("/", (req, res) => {
-  res.render("home");
+  const user = userData
+    .find()
+    .then((result) => {
+      console.log(result);
+      res.render("home", { user: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 app.get("/user/add.html", (req, res) => {
   res.render("user/add");
@@ -22,10 +30,10 @@ app.get("/user/edit.html", (req, res) => {
 });
 
 //POST requests
-app.post("/user/add.html",  (req, res) => {
+app.post("/user/add.html", (req, res) => {
   console.log(req.body);
   const user = new userData(req.body);
-   user
+  user
     .save()
     .then((result) => {
       console.log(result);
