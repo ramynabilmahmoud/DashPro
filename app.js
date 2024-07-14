@@ -12,7 +12,6 @@ app.get("/", (req, res) => {
   const user = userData
     .find()
     .then((result) => {
-      console.log(result);
       res.render("home", { user: result });
     })
     .catch((err) => {
@@ -36,12 +35,11 @@ app.post("/user/add.html", (req, res) => {
   user
     .save()
     .then((result) => {
-      console.log(result);
+      res.redirect("/");
     })
     .catch((err) => {
       console.log(err);
     });
-  res.redirect("/user/view.html");
 });
 mongoose
   .connect(
