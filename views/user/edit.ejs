@@ -42,12 +42,12 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">
-              Ali Hassan
+              <%= userDetails.firstName %> <%= userDetails.lastName %>
             </li>
           </ol>
 
           <p class="me-md-5">
-            <span class="fw-medium fs-6">Id :</span> 6487021520bcf1af6319484c
+            <span class="fw-medium fs-6">Id :</span> <%= userDetails._id %>
           </p>
         </nav>
 
@@ -55,6 +55,7 @@
           <div class="col-md-6">
             <label for="inputfirstName4" class="form-label">First Name:</label>
             <input
+              value=<%= userDetails.firstName %>
               placeholder="Ali..."
               type="text"
               class="form-control"
@@ -63,37 +64,33 @@
           </div>
           <div class="col-md-6">
             <label for="inputlastName4" class="form-label">Last Name:</label>
-            <input
-              placeholder="Hassan..."
-              type="text"
-              class="form-control"
-              id="inputlastName4"
-            />
+            <input 
+            value=<%= userDetails.lastName %>
+            placeholder="Hassan..." type="text" class="form-control"
+            id="inputlastName4" />
           </div>
 
           <div class="col-md-6">
             <label for="inputemail4" class="form-label">Email:</label>
-            <input
-              placeholder="ali@gmail.com"
-              type="email"
-              class="form-control"
-              id="inputemail4"
-            />
+            <input 
+
+            value=<%= userDetails.email %>
+            placeholder="ali@gmail.com" type="email" class="form-control"
+            id="inputemail4" />
           </div>
           <div class="col-md-6">
             <label for="inputtele4" class="form-label">Telephone:</label>
-            <input
-              placeholder="011987899"
-              type="number"
-              class="form-control"
-              id="inputtele4"
-            />
+            <input 
+            value=<%= userDetails.phoneNumber %>
+            placeholder="011987899" type="number" class="form-control"
+            id="inputtele4" />
           </div>
 
           <div>
             <div class="col-md-6">
               <label for="inputage4" class="form-label">Age:</label>
               <input
+                value=<%= userDetails.age %>
                 placeholder="Your Age: ..."
                 type="number"
                 class="form-control"
