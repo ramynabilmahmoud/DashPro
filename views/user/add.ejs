@@ -19,10 +19,7 @@
     <title>Home page</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
-
     <link rel="stylesheet" href="../css/dark-light.css" />
-
-    <!-- Custom styles for this template -->
     <link href="../css/sidebars.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/myStyle.css" />
   </head>
@@ -60,7 +57,6 @@
               id="inputlastName4"
             />
           </div>
-
           <div class="col-md-6">
             <label for="inputemail4" class="form-label">Email:</label>
             <input
@@ -81,43 +77,33 @@
               id="inputtele4"
             />
           </div>
-
-          <div>
-            <div class="col-md-6">
-              <label for="inputage4" class="form-label">Age:</label>
-              <input
-                name="age"
-                placeholder="Your Age: ..."
-                type="number"
-                class="form-control"
-                id="inputage4"
-              />
-            </div>
+          <div class="col-md-6">
+            <label for="inputage4" class="form-label">Age:</label>
+            <input
+              name="age"
+              placeholder="Your Age: ..."
+              type="number"
+              class="form-control"
+              id="inputage4"
+            />
           </div>
-
-          <div>
-            <div class="col-md-6">
-              <label for="inputCountry" class="form-label">Country:</label>
-              <select name="country" id="inputCountry" class="form-select">
-                <option selected hidden disabled>Choose here ...</option>
-                <% countryList.forEach(item => { %>
-                <option><%= item %></option>
-                <% }) %>
-              </select>
-            </div>
+          <div class="col-md-6">
+            <label for="inputCountry" class="form-label">Country:</label>
+            <select name="country" id="inputCountry" class="form-select">
+              <option selected hidden disabled>Choose here ...</option>
+              <% countryList.forEach(item => { %>
+              <option><%= item %></option>
+              <% }) %>
+            </select>
           </div>
-
-          <div>
-            <div class="col-md-6">
-              <label for="inputGender" class="form-label">Gender:</label>
-              <select name="gender" id="inputGender" class="form-select">
-                <option selected hidden disabled>Choose here ...</option>
-                <option>Male</option>
-                <option>Female</option>
-              </select>
-            </div>
+          <div class="col-md-6">
+            <label for="inputGender" class="form-label">Gender:</label>
+            <select name="gender" id="inputGender" class="form-select">
+              <option selected hidden disabled>Choose here ...</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
           </div>
-
           <div class="col-12">
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
@@ -125,7 +111,6 @@
       </section>
     </main>
     <script src="../js/bootstrap.bundle.min.js"></script>
-
     <script src="../js/sidebars.js"></script>
     <script src="../js/main.js"></script>
   </body>

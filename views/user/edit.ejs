@@ -107,7 +107,8 @@
           <div class="col-md-6">
             <label for="inputCountry" class="form-label">Country:</label>
             <select id="inputCountry" class="form-select" name="country">
-              <option hidden disabled>Choose here ...</option>
+              <option selected hidden disabled>Choose here ...</option>
+              
               <% countryList.forEach(item => { %>
               <option value="<%= item %>" <%= userDetails.country === item ? "selected" : "" %>><%= item %></option>
               <% }) %>
@@ -117,7 +118,7 @@
           <div class="col-md-6">
             <label for="inputGender" class="form-label">Gender:</label>
             <select id="inputGender" class="form-select" name="gender">
-              <option hidden disabled>Choose here ...</option>
+              <option selected hidden disabled>Choose here ...</option>
               <option value="Male" <%= userDetails.gender === "Male" ? "selected" : "" %>>Male</option>
               <option value="Female" <%= userDetails.gender === "Female" ? "selected" : "" %>>Female</option>
             </select>
