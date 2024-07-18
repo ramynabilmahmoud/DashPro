@@ -1,6 +1,7 @@
 const User = require("../models/customerSchema");
-var moment = require("moment");
-var country_list = [
+const moment = require("moment");
+const AuthUser = require("../models/authUserSchema");
+const country_list = [
   "Afghanistan",
   "Albania",
   "Algeria",
@@ -289,6 +290,7 @@ const user_post = (req, res) => {
     });
 };
 
+
 module.exports = {
   user_index_get,
   user_edit_get,
@@ -298,4 +300,5 @@ module.exports = {
   user_put,
   user_add_get,
   user_post,
+
 };

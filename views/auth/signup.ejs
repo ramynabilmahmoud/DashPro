@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" class="h-100" data-bs-theme="auto">
     <head>
@@ -26,7 +25,7 @@
         <link rel="stylesheet" href="./css/myStyle.css" />
       </head>
 
-    <style>
+<style>
 
 
 .btn-light,
@@ -48,10 +47,8 @@ body {
 }
 
 
-
     </style>
     <!-- Custom styles for this template -->
-    <link href="cover.css" rel="stylesheet">
   </head>
   <body class="d-flex h-100 text-center text-bg-dark">
     
@@ -63,24 +60,22 @@ body {
 
   <main class="px-3">
    <h1>sign up</h1>
-   <form class="text-start mx-auto mt-5" style="max-width: 22em;">
+   <form class="text-start mx-auto mt-5" style="max-width: 22em;" id="signupForm">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Username :</label>
-        <input type="text" class="form-control" id="exampleInputUsername" aria-describedby="emailHelp">
+        <input type="text" class="form-control" id="userNameId" name="userName">
       </div>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address :</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <input type="text" class="form-control" id="emailId" name="email">
+      <p id="emailError"></p>
     </div>
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password :</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <input type="text" class="form-control" id="passwordId" name="password">
+      <p id="passwordError"></p>
     </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Remember me</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Sign up</button>
   </form>
   </main>
 
@@ -88,6 +83,37 @@ body {
     <p>Designed and developed by Ramy Nabil © 2024</p>
 </footer>
 </div>
+<script>
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    emailError.textContent="";
+    passwordError.textContent="";
+    const res = await fetch("/signup", {
+  method: "POST",
+  body: JSON.stringify({ userName:userNameId.value ,email: emailId.value, password: passwordId.value }),
+  headers: { "Content-Type": "application/json" },
+});
+const data =await res.json();
+
+  if(data.emailExists) {
+    emailError.textContent="Email already exists";
+  }
+  if(data.validationErrorArray){
+    data.validationErrorArray.forEach(element => {
+      if(element.path =="email"){
+        emailError.textContent=element.msg;
+      }
+       if(element.path =="password"){
+        passwordError.textContent=element.msg;
+      }
+    })
+  }
+  if(data.id){
+    location.assign("/home")
+  }
+  })
+  
+</script>
 <script src="./js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

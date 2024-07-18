@@ -29,7 +29,8 @@
     <%- include('./Components/dark-light.ejs') %>
 
     <main class="d-flex flex-nowrap">
-      <%- include('./Components/sidebar.ejs', {currentPage: "index"}) %>
+      <%- include('./Components/sidebar.ejs', {currentPage:
+      "index",authUser:authUser}) %>
 
       <section class="w-100">
         <%- include('./Components/navbar.ejs') %> <% if (user && user.length >
