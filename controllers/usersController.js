@@ -209,7 +209,6 @@ var country_list = [
 ];
 const user_index_get = (req, res) => {
   // result ==> array of objects
-  console.log("--------------------------------------------");
   User.find()
     .then((result) => {
       res.render("index", { user: result, moment: moment });
@@ -245,13 +244,11 @@ const user_view_get = (req, res) => {
 };
 
 const user_search_post = (req, res) => {
-  console.log("*******************************");
 
   const searchText = req.body.searchText.trim();
 
   User.find({ $or: [{ firstName: searchText }, { lastName: searchText }] })
     .then((result) => {
-      console.log(result);
       res.render("user/search", { user: result, moment: moment });
     })
     .catch((err) => {
@@ -263,7 +260,6 @@ const user_delete = (req, res) => {
   User.findOneAndDelete(req.params.id)
     .then((result) => {
       res.redirect("/");
-      console.log(result);
     })
     .catch((err) => {
       console.log(err);
