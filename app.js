@@ -13,11 +13,10 @@ app.use(express.static("public"));
 app.use(methodOverride("_method"));
 app.use(cookieParser());
 app.use(express.json());
+require("dotenv").config();
 
 mongoose
-  .connect(
-    "mongodb+srv://ramynabilmahmoud:8UqIs8er3PQkbbTF@cluster0.afaajs1.mongodb.net/all-data?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGODB_URL)
   .then(() => {
     app.listen(port, () => {
       console.log(`http://localhost:${port}/`);

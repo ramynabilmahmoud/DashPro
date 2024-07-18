@@ -20,7 +20,7 @@ const user_signup_post = async (req, res) => {
       return res.json({ emailExists: "This email is already exists" });
     } else {
       const newUser = await AuthUser.create(req.body);
-      const token = jwt.sign({ id: newUser._id }, "dashpro");
+      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY);
       res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 });
       res.json({ id: newUser._id });
     }
@@ -37,7 +37,10 @@ const user_login_post = async (req, res) => {
     } else {
       const match = await bcrypt.compare(req.body.password, loginUser.password);
       if (match) {
-        const token = jwt.sign({ id: loginUser._id }, "dashpro");
+        const token = jwt.sign(
+          { id: loginUser._id },
+          process.env.JWT_SECRET_KEY
+        );
         res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 });
         res.json({ id: loginUser._id });
       } else {

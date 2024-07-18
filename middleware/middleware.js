@@ -5,7 +5,7 @@ const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
 
   if (token) {
-    jwt.verify(token, "dashpro", (err) => {
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (err) => {
       if (err) {
         res.redirect("/login");
       } else {
@@ -20,7 +20,7 @@ const requireAuth = (req, res, next) => {
 const checkExistUser = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
-    jwt.verify(token, "dashpro", async (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
       if (err) {
         res.locals.authUser = null;
         next();
