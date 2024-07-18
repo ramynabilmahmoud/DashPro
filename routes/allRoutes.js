@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const userSchema = require("../models/customerSchema");
-const moment = require("moment");
 const userController = require("../controllers/usersController");
 // GET Request
 router.get("/", userController.user_index_get);

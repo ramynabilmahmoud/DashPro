@@ -212,7 +212,7 @@ const user_index_get = (req, res) => {
   console.log("--------------------------------------------");
   User.find()
     .then((result) => {
-      res.render("index", { arr: result, moment: moment });
+      res.render("index", { user: result, moment: moment });
     })
     .catch((err) => {
       console.log(err);
@@ -222,7 +222,11 @@ const user_index_get = (req, res) => {
 const user_edit_get = (req, res) => {
   User.findById(req.params.id)
     .then((result) => {
-      res.render("user/edit", { obj: result, moment: moment });
+      res.render("user/edit", {
+        userDetails: result,
+        moment: moment,
+        countryList: country_list,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -233,7 +237,7 @@ const user_view_get = (req, res) => {
   // result ==> object
   User.findById(req.params.id)
     .then((result) => {
-      res.render("user/view", { obj: result, moment: moment });
+      res.render("user/view", { userDetails: result, moment: moment });
     })
     .catch((err) => {
       console.log(err);
@@ -245,10 +249,10 @@ const user_search_post = (req, res) => {
 
   const searchText = req.body.searchText.trim();
 
-  User.find({ $or: [{ fireName: searchText }, { lastName: searchText }] })
+  User.find({ $or: [{ firstName: searchText }, { lastName: searchText }] })
     .then((result) => {
       console.log(result);
-      res.render("user/search", { arr: result, moment: moment });
+      res.render("user/search", { user: result, moment: moment });
     })
     .catch((err) => {
       console.log(err);
@@ -256,7 +260,7 @@ const user_search_post = (req, res) => {
 };
 
 const user_delete = (req, res) => {
-  User.deleteOne({ _id: req.params.id })
+  User.findOneAndDelete(req.params.id)
     .then((result) => {
       res.redirect("/");
       console.log(result);
@@ -267,7 +271,7 @@ const user_delete = (req, res) => {
 };
 
 const user_put = (req, res) => {
-  User.updateOne({ _id: req.params.id }, req.body)
+  User.findOneAndUpdate(req.params.id, req.body)
     .then((result) => {
       res.redirect("/");
     })
@@ -277,7 +281,7 @@ const user_put = (req, res) => {
 };
 
 const user_add_get = (req, res) => {
-  res.render("user/add");
+  res.render("user/add", { countryList: country_list });
 };
 
 const user_post = (req, res) => {
