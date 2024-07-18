@@ -244,7 +244,6 @@ const user_view_get = (req, res) => {
 };
 
 const user_search_post = (req, res) => {
-
   const searchText = req.body.searchText.trim();
 
   User.find({ $or: [{ firstName: searchText }, { lastName: searchText }] })
@@ -259,7 +258,7 @@ const user_search_post = (req, res) => {
 const user_delete = (req, res) => {
   User.findOneAndDelete(req.params.id)
     .then((result) => {
-      res.redirect("/");
+      res.redirect("/home");
     })
     .catch((err) => {
       console.log(err);
@@ -269,7 +268,7 @@ const user_delete = (req, res) => {
 const user_put = (req, res) => {
   User.findOneAndUpdate(req.params.id, req.body)
     .then((result) => {
-      res.redirect("/");
+      res.redirect("/home");
     })
     .catch((err) => {
       console.log(err);
@@ -283,7 +282,7 @@ const user_add_get = (req, res) => {
 const user_post = (req, res) => {
   User.create(req.body)
     .then(() => {
-      res.redirect("/");
+      res.redirect("/home");
     })
     .catch((err) => {
       console.log(err);
