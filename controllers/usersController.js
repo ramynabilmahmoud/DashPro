@@ -1,6 +1,6 @@
-const User = require("../models/customerSchema");
 const moment = require("moment");
 const AuthUser = require("../models/authUserSchema");
+const jwt = require("jsonwebtoken");
 const country_list = [
   "Afghanistan",
   "Albania",
@@ -209,10 +209,57 @@ const country_list = [
   "Zimbabwe",
 ];
 const user_index_get = (req, res) => {
+  const decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET_KEY);
   // result ==> array of objects
-  User.find()
+  AuthUser.findOne({ _id: decoded.id })
     .then((result) => {
-      res.render("index", { user: result, moment: moment });
+      console.log(result.customersInfo);
+      res.render("index", { customers: result.customersInfo, moment: moment });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const user_post = (req, res) => {
+  const decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET_KEY);
+  AuthUser.updateOne(
+    { _id: decoded.id },
+    { $push: { customersInfo: req.body } }
+  )
+    .then(() => {
+      res.redirect("/home");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const user_delete = (req, res) => {
+  AuthUser.updateOne(
+    { "customersInfo._id": req.params.id },
+    { $pull: { customersInfo: { _id: req.params.id } } }
+  )
+    .then((result) => {
+      res.redirect("/home");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const user_view_get = (req, res) => {
+  // result ==> object
+  AuthUser.findOne({ "customersInfo._id": req.params.id })
+    .then((result) => {
+      const selectedCustomer = result.customersInfo.find((item) => {
+        return item._id == req.params.id;
+      });
+      console.log(selectedCustomer);
+      res.render("user/view", {
+        userDetails: selectedCustomer,
+        moment: moment,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -220,10 +267,13 @@ const user_index_get = (req, res) => {
 };
 
 const user_edit_get = (req, res) => {
-  User.findById(req.params.id)
+  AuthUser.findOne({ "customersInfo._id": req.params.id })
     .then((result) => {
+      const selectedCustomer = result.customersInfo.find((item) => {
+        return item._id == req.params.id;
+      });
       res.render("user/edit", {
-        userDetails: result,
+        userDetails: selectedCustomer,
         moment: moment,
         countryList: country_list,
       });
@@ -233,41 +283,11 @@ const user_edit_get = (req, res) => {
     });
 };
 
-const user_view_get = (req, res) => {
-  // result ==> object
-  User.findById(req.params.id)
-    .then((result) => {
-      res.render("user/view", { userDetails: result, moment: moment });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-const user_search_post = (req, res) => {
-  const searchText = req.body.searchText.trim();
-
-  User.find({ $or: [{ firstName: searchText }, { lastName: searchText }] })
-    .then((result) => {
-      res.render("user/search", { user: result, moment: moment });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-const user_delete = (req, res) => {
-  User.findOneAndDelete(req.params.id)
-    .then((result) => {
-      res.redirect("/home");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
 const user_put = (req, res) => {
-  User.findOneAndUpdate(req.params.id, req.body)
+  AuthUser.updateOne(
+    { "customersInfo._id": req.params.id },
+    { "customersInfo.$": req.body }
+  )
     .then((result) => {
       res.redirect("/home");
     })
@@ -280,16 +300,27 @@ const user_add_get = (req, res) => {
   res.render("user/add", { countryList: country_list });
 };
 
-const user_post = (req, res) => {
-  User.create(req.body)
-    .then(() => {
-      res.redirect("/home");
+const user_search_post = (req, res) => {
+  const searchText = req.body.searchText.trim();
+  const decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET_KEY);
+
+  AuthUser.findOne({ _id: decoded.id })
+    .then((result) => {
+      const filteredCustomers = result.customersInfo.filter((item) => {
+        return (
+          item.firstName.includes(searchText) ||
+          item.lastName.includes(searchText)
+        );
+      });
+      res.render("user/search", {
+        customers: filteredCustomers,
+        moment: moment,
+      });
     })
     .catch((err) => {
       console.log(err);
     });
 };
-
 
 module.exports = {
   user_index_get,
@@ -300,5 +331,4 @@ module.exports = {
   user_put,
   user_add_get,
   user_post,
-
 };

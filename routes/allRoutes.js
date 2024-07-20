@@ -3,9 +3,10 @@ const router = express.Router();
 const userController = require("../controllers/usersController");
 const authController = require("../controllers/authController");
 const middleware = require("../middleware/middleware");
-const {check} = require("express-validator");
+const { check } = require("express-validator");
 
 router.get("*", middleware.checkExistUser);
+router.post("*", middleware.checkExistUser);
 
 router.get("/", middleware.checkExistUser, authController.user_welcome_get);
 
